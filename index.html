@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Radar de Congressos & Bolsa FAPDF — Escola de Pacientes DF</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+:root{
+  --bg:#ffffff; --panel:#f7f6f3; --panel2:#f1f1ef; --line:#e9e9e7; --line2:#ededec;
+  --ink:#191919; --body:#37352f; --muted:#787774; --muted2:#9b9a97;
+  --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --blue:#2383e2; --blue-soft:#e7f3f8;
+  /* tags oficiais Notion (bg / texto / dot) */
+  --t-gray-bg:#e3e2e0; --t-gray-tx:#32302c; --t-gray-dot:#9b9a97;
+  --t-blue-bg:#d3e5ef; --t-blue-tx:#183347; --t-blue-dot:#2383e2;
+  --t-green-bg:#dbeddb; --t-green-tx:#1c3829; --t-green-dot:#4dab9a;
+  --t-yellow-bg:#fdecc8; --t-yellow-tx:#402c1b; --t-yellow-dot:#cb912f;
+  --t-red-bg:#ffe2dd; --t-red-tx:#5d1715; --t-red-dot:#e03e3e;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:var(--sans);background:var(--bg);color:var(--body);line-height:1.6;-webkit-font-smoothing:antialiased;font-size:15px;}
+.wrap{max-width:1120px;margin:0 auto;padding:44px 20px 80px;}
+
+/* HERO */
+header.top{margin-bottom:32px;padding:0 8px;}
+.eyebrow{color:var(--muted);font-weight:500;font-size:13px;letter-spacing:-.01em;display:flex;align-items:center;gap:8px;}
+h1{font-weight:800;font-size:clamp(34px,5vw,52px);line-height:1.06;letter-spacing:-.035em;color:var(--ink);margin:16px 0 14px;}
+.hl{background:var(--blue-soft);border-radius:12px;padding:0 14px 3px 12px;display:inline-flex;align-items:center;gap:11px;line-height:1;}
+.hl .hldot{width:15px;height:15px;border-radius:50%;background:var(--blue);display:inline-block;flex-shrink:0;}
+.lede{margin:0;color:var(--muted);font-size:17px;max-width:720px;letter-spacing:-.01em;}
+.metatags{margin-top:20px;display:flex;flex-wrap:wrap;gap:8px;}
+.metatag{background:var(--panel);border:1px solid var(--line);border-radius:7px;padding:5px 11px;font-size:12.5px;color:var(--body);}
+.metatag strong{color:var(--ink);font-weight:600;}
+
+/* SEÇÃO como bloco colorido (estilo callout grande do Notion) */
+section{padding:26px 28px;border-radius:16px;margin-bottom:20px;}
+.s-blue{background:#f1f7fb;} .s-gray{background:#f7f6f4;} .s-red{background:#fdf3f2;}
+.s-yellow{background:#fcf7ea;} .s-green{background:#f0f6f1;} .s-orange{background:#fbf4ec;}
+.s-pink{background:#fbf2f6;} .s-purple{background:#f6f3fa;}
+
+h2{font-weight:700;font-size:clamp(22px,3vw,28px);line-height:1.15;letter-spacing:-.025em;color:var(--ink);margin:0 0 6px;display:flex;align-items:center;gap:12px;}
+.chip{width:36px;height:36px;border-radius:9px;display:inline-flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0;}
+.chip-blue{background:var(--t-blue-bg);} .chip-gray{background:var(--t-gray-bg);} .chip-red{background:var(--t-red-bg);}
+.chip-yellow{background:var(--t-yellow-bg);} .chip-green{background:var(--t-green-bg);} .chip-orange{background:#faebdd;}
+.chip-pink{background:#f5e0e9;} .chip-purple{background:#e8deee;}
+.h2sub{color:var(--muted);font-size:14px;margin:2px 0 20px;letter-spacing:-.01em;max-width:840px;}
+
+/* cards internos brancos para contraste sobre a seção colorida */
+.callout{display:flex;gap:14px;background:var(--bg);border:1px solid var(--line);border-radius:11px;padding:18px 20px;}
+.callout .ico{font-size:20px;line-height:1.3;flex-shrink:0;}
+.callout .body{font-size:14.5px;color:var(--body);}
+.callout .body strong{color:var(--ink);font-weight:600;}
+
+.grid{display:grid;gap:12px;}
+.kpis{grid-template-columns:repeat(auto-fit,minmax(150px,1fr));}
+.kpi{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:18px 20px;}
+.kpi .n{font-weight:800;font-size:32px;color:var(--ink);letter-spacing:-.04em;line-height:1;}
+.kpi .l{font-size:12.5px;color:var(--muted);margin-top:8px;}
+
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--bg);}
+table{border-collapse:collapse;width:100%;font-size:13px;}
+table.wide{min-width:1000px;}
+th,td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--line2);vertical-align:top;}
+th{background:var(--panel);font-weight:500;color:var(--muted);font-size:12px;letter-spacing:-.005em;position:sticky;top:0;white-space:nowrap;}
+tr:last-child td{border-bottom:none;}
+tbody tr:hover{background:var(--panel);}
+td a{color:var(--blue);text-decoration:none;font-weight:500;}
+td a:hover{text-decoration:underline;}
+.pts{font-weight:800;color:var(--ink);font-size:15px;letter-spacing:-.02em;}
+
+.tag{display:inline-flex;align-items:center;gap:6px;padding:2px 9px;border-radius:5px;font-size:12px;font-weight:500;line-height:1.55;white-space:nowrap;}
+.tag .d{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+.t-gray{background:var(--t-gray-bg);color:var(--t-gray-tx);} .t-gray .d{background:var(--t-gray-dot);}
+.t-blue{background:var(--t-blue-bg);color:var(--t-blue-tx);} .t-blue .d{background:var(--t-blue-dot);}
+.t-green{background:var(--t-green-bg);color:var(--t-green-tx);} .t-green .d{background:var(--t-green-dot);}
+.t-yellow{background:var(--t-yellow-bg);color:var(--t-yellow-tx);} .t-yellow .d{background:var(--t-yellow-dot);}
+.t-red{background:var(--t-red-bg);color:var(--t-red-tx);} .t-red .d{background:var(--t-red-dot);}
+
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;}
+.filters select{padding:7px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg);font-size:13px;color:var(--body);font-family:var(--sans);cursor:pointer;}
+.filters select:hover{background:var(--panel);}
+.win-open{color:var(--t-green-tx);font-weight:600;}
+.win-closed{color:var(--muted);}
+
+.charts{grid-template-columns:repeat(auto-fit,minmax(300px,1fr));}
+.chartbox{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:20px;}
+.chartbox h3{margin:0 0 14px;font-size:13.5px;font-weight:600;color:var(--ink);letter-spacing:-.01em;}
+.legendrow{display:flex;flex-wrap:wrap;gap:16px;margin-top:16px;font-size:12.5px;color:var(--muted);}
+.legendrow span{display:inline-flex;align-items:center;gap:7px;}
+.dot{width:9px;height:9px;border-radius:50%;display:inline-block;}
+.note{font-size:13px;color:var(--muted);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-top:14px;}
+.note strong{color:var(--ink);}
+
+.rubric td:first-child{font-weight:600;color:var(--ink);width:26%;}
+.scen th:first-child,.scen td:first-child{font-weight:600;color:var(--ink);}
+.scen .tot{font-weight:800;color:var(--ink);font-size:15px;letter-spacing:-.02em;}
+
+footer{margin-top:40px;padding:24px 28px 0;border-top:1px solid var(--line);font-size:12.5px;color:var(--muted);line-height:1.75;}
+footer strong{color:var(--body);}
+footer code{background:var(--panel2);padding:1px 6px;border-radius:4px;font-size:11.5px;}
+.goldrule{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:16px 18px;font-size:14.5px;margin-bottom:18px;color:var(--body);}
+.goldrule strong{color:var(--ink);font-weight:600;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <div class="eyebrow">📍 Grupo de Pesquisa Escola de Pacientes DF · Universidade de Brasília</div>
+  <h1>Radar de Congressos <span class="hl"><span class="hldot"></span>&amp; Bolsa FAPDF</span></h1>
+  <p class="lede">Radar semanal de oportunidades para o Edital 02/2026 FAPDF Participa — Educação Médica &amp; MFC/APS. Coordenação: João Lucas (graduando, extensão — Faixa A).</p>
+  <div class="metatags">
+    <span class="metatag"><strong>Edital</strong> 02/2026 FAPDF Participa</span>
+    <span class="metatag"><strong>Atualizado</strong> <span id="dt"></span></span>
+    <span class="metatag"><strong>Verificação web</strong> 13–14/07/2026</span>
+    <span class="metatag"><strong>Faixa</strong> A (graduando)</span>
+  </div>
+</header>
+
+<section class="s-blue">
+  <h2><span class="chip chip-blue">⚖️</span> Veredito da semana</h2>
+  <div class="callout">
+    <div class="ico">💡</div>
+    <div class="body">
+      A janela de <strong>Out/Nov fechou em 10/07</strong>. Sob o Edital 02/2026, todas as janelas de eventos de abr–nov/2026 já fecharam; seguem abertas apenas <strong>Dez/Jan (fecha 14/08)</strong> e <strong>Fev/Mar-27 (fecha 18/09)</strong>. O <strong>ECIM 2027</strong> (Paris, 31/03–03/04) é evento legítimo e forte (95 pts) e o mês do 1º dia bate na janela Fev/Mar-27 — porém o aceite só sai em 08/01/2027, ~4 meses depois de a janela fechar: <strong>não encaixa neste edital</strong>, fica para o edital 2027. <strong>Ação prioritária:</strong> preparar o edital de 2027 (AMEE, WONCA, ECIM, CBMFC) e usar DEG/UnB como plano B para os eventos de 2026. Os eventos Conference Series entram nas tabelas com pontuação e encaixe calculados — a decisão é do grupo, com os fatos à vista.
+    </div>
+  </div>
+</section>
+
+<section class="s-gray">
+  <h2><span class="chip chip-gray">🔢</span> Indicadores</h2>
+  <div class="grid kpis" id="kpis"></div>
+</section>
+
+<section class="s-red">
+  <h2><span class="chip chip-red">🗓️</span> Calendário de janelas FAP</h2>
+  <p class="h2sub">Edital 02/2026 · janela = mês do 1º dia do evento (Anexo II) · a FAP exige anexar a carta de <strong>aceite</strong> na submissão (item 9.1.9.3)</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Janela (mês do evento)</th><th>Fecha em</th><th>Situação hoje (14/07/2026)</th></tr></thead>
+      <tbody>
+        <tr><td>Abr/Mai 2026</td><td>06/02</td><td class="win-closed">Encerrada</td></tr>
+        <tr><td>Jun 2026</td><td>27/03</td><td class="win-closed">Encerrada</td></tr>
+        <tr><td>Jul 2026</td><td>30/04</td><td class="win-closed">Encerrada</td></tr>
+        <tr><td>Ago 2026</td><td>08/05</td><td class="win-closed">Encerrada</td></tr>
+        <tr><td>Set 2026</td><td>12/06</td><td class="win-closed">Encerrada</td></tr>
+        <tr><td>Out e Nov 2026</td><td>10/07</td><td class="win-closed">Encerrada há 4 dias</td></tr>
+        <tr><td>Dez/2026 e Jan/2027</td><td>14/08</td><td class="win-open">ABERTA — 31 dias</td></tr>
+        <tr><td>Fev e Mar/2027</td><td>18/09</td><td class="win-open">ABERTA — 66 dias</td></tr>
+        <tr><td>Abr/2027 em diante</td><td>—</td><td class="win-closed">Próximo edital (projetar)</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="note">O aceite do congresso precisa sair <strong>até o fim da janela do mês do evento</strong> — este é o gargalo que reprova a maioria dos encaixes (inclusive o ECIM 2027).</div>
+</section>
+
+<section class="s-yellow">
+  <h2><span class="chip chip-yellow">📊</span> Rubrica de pontuação — Anexo VII</h2>
+  <p class="h2sub">Máximo 150 pontos · os 3 primeiros critérios dependem do congresso (até 110); os 2 últimos, do proponente (até 40)</p>
+  <div class="tablewrap">
+    <table class="rubric">
+      <thead><tr><th>Critério</th><th>Pontuação</th><th>Depende de</th></tr></thead>
+      <tbody>
+        <tr><td>Edições anteriores do evento</td><td>0 / 10 / 20 / 30 / 40 / 45 / 50 &nbsp;<span style="color:var(--muted)">(para 0 / 1 / 2-3 / 4-6 / 7-9 / 10-19 / 20+ edições)</span></td><td>Congresso</td></tr>
+        <tr><td>Abrangência</td><td>Regional 10 · Nacional 20 · Internacional 30</td><td>Congresso</td></tr>
+        <tr><td>Formato do trabalho</td><td>Pôster/abstract 1 pg 15 · Artigo resumido 1-4 pg 20 · Artigo completo &gt;4 pg 30</td><td>Congresso/formato</td></tr>
+        <tr><td>Forma de apresentação</td><td>Pôster 10 · Oral 20</td><td>Proponente</td></tr>
+        <tr><td>Artigos completos publicados em 2025</td><td>0 / 10 / 15 / 20 &nbsp;<span style="color:var(--muted)">(para 0 / 1-2 / 3-5 / 6+ artigos)</span></td><td>Proponente</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="note">Desempate (10.5): artigos 2025 → nº de edições → internacional → oral. A <strong>“Pontuação do evento”</strong> nas tabelas = parte do congresso (Edições + Abrangência + Formato), na base pôster/abstract 1 pg (15).</div>
+</section>
+
+<section class="s-green">
+  <h2><span class="chip chip-green">🎯</span> Alvos — encaixe + pontuação + veredito</h2>
+  <p class="h2sub">Ordenado por relevância estratégica · “a confirmar” = dado não fechado nesta rodada</p>
+  <div class="filters">
+    <select id="fCont"></select>
+    <select id="fArea"></select>
+    <select id="fVer"></select>
+  </div>
+  <div class="tablewrap">
+    <table class="wide" id="tbl">
+      <thead><tr>
+        <th>Congresso / Local</th><th>Data do evento</th><th>Janela FAP</th>
+        <th>Prazo resumo / aceite</th><th>Pontos evento</th><th>Veredito FAP</th><th>Link</th>
+      </tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+  <div class="legendrow">
+    <span><i class="dot" style="background:var(--t-green-dot)"></i> sem necessidade de FAP</span>
+    <span><i class="dot" style="background:var(--t-blue-dot)"></i> alvo do próximo edital (2027)</span>
+    <span><i class="dot" style="background:var(--t-yellow-dot)"></i> encaixe barrado pelo prazo de aceite</span>
+    <span><i class="dot" style="background:var(--t-red-dot)"></i> janela FAP já fechada (usar DEG/UnB)</span>
+  </div>
+</section>
+
+<section class="s-orange">
+  <h2><span class="chip chip-orange">🔎</span> Conference Series &amp; redes similares</h2>
+  <p class="h2sub">Varredura sistemática (13/07/2026): 2 trilhas do conferenceseries.com (primary healthcare/family medicine + public health) · <strong>51 eventos lidos, 17 em janela FAP aberta, 5 na área do grupo</strong></p>
+  <div class="tablewrap">
+    <table class="wide" id="tblCS">
+      <thead><tr>
+        <th>Evento</th><th>Local</th><th>Data</th><th>Janela FAP</th><th>Edições prév.</th><th>Pontos evento</th><th>Aderência ao grupo</th>
+      </tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+  <div class="callout" style="margin-top:14px;">
+    <div class="ico">📌</div>
+    <div class="body">
+      <strong>Como a rede opera &amp; idoneidade (fatos a ponderar).</strong> Conference Series LLC/OMICS declara 3000+ eventos e roda séries mensais em muitas cidades, com aceite-relâmpago que cai exatamente nas janelas abertas. Pontuação real varia: edição alta (26ª, 34ª) marca 95; novos (7ª) marcam 75. A maioria é enfermagem — só alguns tocam APS/saúde pública/patient care. Taxas ~US$ 600–1.000 (confirmar por evento). <strong>Idoneidade:</strong> perfil predatório documentado; a OMICS perdeu ação da FTC (~US$ 50 mi, 2019) por alegações enganosas sobre journals/conferências; a FAP avalia mérito e pode reprovar/questionar; o Anexo III responsabiliza o proponente. A mesma pontuação (95) existe em congressos legítimos (AMEE, WONCA, NAPCRG, ECIM). Fatos postos — a escolha é do grupo.
+    </div>
+  </div>
+  <div class="note">Os 17 eventos em janela aberta incluem ainda ~12 de enfermagem pura/temas fora do foco (ex.: 63ª World Nursing, 21ª Psychiatric Nursing, 44ª Women's Health, 10ª PCOS) — omitidos por baixa aderência. Fora do conferenceseries.com: a “7ª Int. Conf. on Medical Education” (OMICS/healthconferences.org, Paris 21-22/10/26, 7ª ed → 75 pts) está na janela Out/Nov (fechada).</div>
+</section>
+
+<section class="s-pink">
+  <h2><span class="chip chip-pink">📈</span> Visualizações</h2>
+  <div class="grid charts">
+    <div class="chartbox"><h3>Pontuação do evento (alvos)</h3><canvas id="cPts"></canvas></div>
+    <div class="chartbox"><h3>Veredito FAP</h3><canvas id="cVer"></canvas></div>
+    <div class="chartbox"><h3>Alvos por continente</h3><canvas id="cCont"></canvas></div>
+    <div class="chartbox"><h3>Alvos por área</h3><canvas id="cArea"></canvas></div>
+  </div>
+</section>
+
+<section class="s-purple">
+  <h2><span class="chip chip-purple">🏆</span> Estratégia de nota de corte</h2>
+  <p class="h2sub">A verba é distribuída por Faixa (A = graduando) e por período (mês do evento); dentro de cada período/faixa os candidatos são ranqueados pela pontuação até o dinheiro acabar. A nota de corte = menor pontuação entre os contemplados.</p>
+  <div class="tablewrap">
+    <table class="scen">
+      <thead><tr><th>Cenário</th><th>Edições</th><th>Abrang.</th><th>Formato</th><th>Apresent.</th><th>Artigos 2025</th><th>Total</th></tr></thead>
+      <tbody>
+        <tr><td>Mínimo</td><td>50</td><td>30 (int.)</td><td>15 (pôster)</td><td>10 (pôster)</td><td>0</td><td class="tot">105</td></tr>
+        <tr><td>Realista</td><td>50</td><td>30 (int.)</td><td>15 (pôster)</td><td>20 (oral)</td><td>10 (1-2)</td><td class="tot">125</td></tr>
+        <tr><td>Forte</td><td>50</td><td>30 (int.)</td><td>30 (art. completo)</td><td>20 (oral)</td><td>15 (3-5)</td><td class="tot">145</td></tr>
+        <tr><td>Teto</td><td>50</td><td>30 (int.)</td><td>30 (art. completo)</td><td>20 (oral)</td><td>20 (6+)</td><td class="tot">150</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="note"><strong>Alavancas:</strong> (1) travar 80 com congresso internacional 20+ edições (50+30); (2) subir o formato — artigo completo &gt;4 pg = 30; (3) garantir oral (+20); (4) publicar artigos completos em 2025 (+até 20). <strong>Meta: mirar folga acima do corte (~130+), não o mínimo.</strong></div>
+  <div class="note"><strong>Nota de corte — Faixa A (esta rodada):</strong> não foi possível extrair o número da última nota de corte (a página de resultado da FAP é renderizada dinamicamente). Onde ler: DODF (dodf.df.gov.br), Editais FAPDF 2026 (fap.df.gov.br/editais-fapdf-20261) e fap.df.gov.br/category/resultados — procurar o “Resultado preliminar/final do Edital Participa” do período (há resultado recente para fev/mar 2026 e para o 7º período). Confirmar por e-mail da COOTEC (cootec@fap.df.gov.br).</div>
+</section>
+
+<footer>
+  <div class="goldrule"><strong>Regra de ouro:</strong> um bom alvo passa nos TRÊS filtros — encaixe na janela · pontuação alta · idoneidade. Lição do ECIM 2027: o mês do evento bater na janela é necessário, mas não basta — o aceite tem de sair antes de a janela fechar.</div>
+  Dados verificados na web em 13–14/07/2026 (sites oficiais); itens “a confirmar” devem ser checados na fonte antes de orçar. <strong>Fontes:</strong> ecim2027.org · efim.org · fap.df.gov.br · dodf.df.gov.br · amee.org · stfm.org · sbmfc.org.br · abem-educmed.org.br · napcrg.org · conferenceseries.com. Dados brutos em <code>dados_congressos.json</code>. Dashboard estático para GitHub Pages — atualização semanal automatizada.
+</footer>
+
+</div>
+
+<script>
+const alvos = [
+{nome:"ECIM 2027",detalhe:"25ª ed · Med. Interna, EFIM",local:"Paris/FR",continente:"Europa",area:"Medicina Interna",data:"31 Mar–03 Abr 2027",janela:"Fev/Mar-27 (18/09) — mês bate",prazo:"Resumo 01/06–30/10/26 · aceite 08/01/27",pts:95,ptsdet:"int·25ªed·pôster",ver:"NÃO ENCAIXA",vertx:"Aceite (08/01/27) sai ~4 meses após a janela fechar (18/09) → edital 2027",cor:"yellow",link:"https://ecim2027.org/"},
+{nome:"AMEE 2027",detalhe:"local a confirmar",local:"a confirmar",continente:"Europa",area:"Educação Médica",data:"~Ago 2027",janela:"Próximo edital",prazo:"~Jan/Fev 2027",pts:95,ptsdet:"int·20+ed·pôster",ver:"PRÓXIMO EDITAL",vertx:"Alvo-âncora legítimo; preparar resumo já",cor:"blue",link:"https://amee.org/events/"},
+{nome:"26º WONCA World 2027",detalhe:"MFC global",local:"Cidade do Cabo/ZA",continente:"África",area:"Medicina de Família / APS",data:"03-07 Nov 2027",janela:"Próximo edital",prazo:"~Abr 2027",pts:95,ptsdet:"int·20+ed·pôster",ver:"PRÓXIMO EDITAL",vertx:"Planejar submissão no 1º tri/2027",cor:"blue",link:"https://www.globalfamilydoctor.com/Conferences/WONCAWorld2027.aspx"},
+{nome:"31º WONCA Europe 2027",detalhe:"Ljubljana/SI (confirmado)",local:"Ljubljana/SI",continente:"Europa",area:"Medicina de Família / APS",data:"09-12 Jun 2027",janela:"Próximo edital",prazo:"~Jan 2027",pts:95,ptsdet:"int·20+ed·pôster",ver:"PRÓXIMO EDITAL",vertx:"Cidade confirmada (Ljubljana); confirmar abertura da call",cor:"blue",link:"https://woncaeurope2027.org/"},
+{nome:"19º CBMFC",detalhe:"MFC/APS",local:"Porto Alegre/RS",continente:"América do Sul",area:"Medicina de Família / APS",data:"21-25 Abr 2027",janela:"Próximo edital",prazo:"~Jan/Fev 2027",pts:80,ptsdet:"nac·10-19ed·pôster",ver:"PRÓXIMO EDITAL",vertx:"Inscrições abertas; garantir lote promo",cor:"blue",link:"https://sbmfc.org.br/eventos/19o-congresso-brasileiro-de-medicina-de-familia-e-comunidade/"},
+{nome:"STFM MSE 2027",detalhe:"educ. médica",local:"Anaheim/EUA",continente:"América do Norte",area:"Educação Médica",data:"05-07 Fev 2027",janela:"Fev/Mar-27 (18/09) — mês bate",prazo:"Resumo 17/06/26 (encerrado)",pts:95,ptsdet:"int·20+ed·pôster",ver:"NO LIMITE",vertx:"Só se já submeteu; aceite precisa sair antes de 18/09",cor:"yellow",link:"https://www.stfm.org/conferences/mse/overview/"},
+{nome:"64º COBEM 2026",detalhe:"núcleo do grupo",local:"Porto Alegre/RS",continente:"América do Sul",area:"Educação Médica",data:"17-20 Set 2026",janela:"Set 2026 (12/06) FECHADA",prazo:"Jul/2026 (verificar)",pts:85,ptsdet:"nac·20+ed·pôster",ver:"INVIÁVEL",vertx:"Janela fechou → plano B DEG/UnB",cor:"red",link:"https://website.abem-educmed.org.br/congressos/cobem/"},
+{nome:"IX Cong. Sul-Brasileiro de MFC",detalhe:"tema = ensino na APS",local:"Florianópolis/SC",continente:"América do Sul",area:"Medicina de Família / APS",data:"20-22 Ago 2026",janela:"Ago 2026 (08/05) FECHADA",prazo:"Verificar (Dype)",pts:65,ptsdet:"reg·7-9ed·pôster",ver:"INVIÁVEL",vertx:"Plano B DEG/UnB (tema = ensino na APS)",cor:"red",link:"https://www.sulbrasileiromfc2026.com.br/"},
+{nome:"18º WCPH 2026",detalhe:"saúde pública",local:"Cidade do Cabo/ZA",continente:"África",area:"Saúde Pública",data:"06-09 Set 2026",janela:"Set 2026 (12/06) FECHADA",prazo:"Encerrado (late-break?)",pts:90,ptsdet:"int·10-19ed·pôster",ver:"INVIÁVEL",vertx:"Plano B DEG/UnB",cor:"red",link:"https://www.wcph.org/"},
+{nome:"NAPCRG 2026 (54º)",detalhe:"pesquisa APS",local:"Toronto/CA",continente:"América do Norte",area:"Pesquisa em APS",data:"20-24 Nov 2026",janela:"Out/Nov (10/07) FECHOU",prazo:"Fechou 12/07/2026",pts:95,ptsdet:"int·20+ed·pôster",ver:"INVIÁVEL",vertx:"Janela fechou 10/07 → plano B DEG/UnB",cor:"red",link:"https://www.napcrg.org/conferences/annual/annualmeeting/"},
+{nome:"ICRE 2026",detalhe:"educ. em residência",local:"Ottawa/CA",continente:"América do Norte",area:"Educação Médica",data:"22-24 Out 2026",janela:"Out/Nov (10/07) FECHOU",prazo:"Verificar site",pts:95,ptsdet:"int·pôster·a confirmar",ver:"INVIÁVEL",vertx:"Plano B DEG/UnB",cor:"red",link:"https://icre.royalcollege.ca/en"},
+{nome:"ICCH 2026",detalhe:"comunicação em saúde",local:"Belfast/UK",continente:"Europa",area:"Comunicação em Saúde",data:"14-18 Set 2026",janela:"Set 2026 (12/06) FECHADA",prazo:"Encerrado",pts:90,ptsdet:"int·pôster·edições a confirmar",ver:"INVIÁVEL",vertx:"Plano B DEG/UnB",cor:"red",link:"https://fitwise.eventsair.com/icch2026/"},
+{nome:"II Cong. Brasiliense de MFC",detalhe:"evento em casa",local:"Brasília/DF",continente:"América do Sul",area:"Medicina de Família / APS",data:"13-15 Ago 2026",janela:"Não se aplica (sem viagem)",prazo:"Verificar site",pts:35,ptsdet:"reg·2ª ed·pôster",ver:"SEM FAP",vertx:"Apresentar livremente, dá volume ao currículo",cor:"green",link:"https://sbmfc.org.br/eventos/ii-congresso-brasiliense-de-medicina-de-familia-e-comunidade/"}
+];
+const confseries = [
+{nome:"34ª Int. Congress on Nursing Education & Primary Health Care",local:"Roma, IT",continente:"Europa",area:"APS + educação",data:"21-22 Jan 2027",janela:"Dez/Jan (14/08) ABERTA",edicoes:"33",pts:95,aderencia:"Média",aderdet:"APS + educação"},
+{nome:"34ª Int. Congress on Nursing & Primary Health Care",local:"Roma, IT",continente:"Europa",area:"APS",data:"04-05 Fev 2027",janela:"Fev/Mar-27 (18/09) ABERTA",edicoes:"33",pts:95,aderencia:"Média",aderdet:"APS"},
+{nome:"7º Global Summit on Public Health",local:"Amsterdã, NL",continente:"Europa",area:"Saúde Pública",data:"13-14 Jan 2027",janela:"Dez/Jan (14/08) ABERTA",edicoes:"6",pts:75,aderencia:"Média",aderdet:"saúde pública"},
+{nome:"26ª Int. Conf. on Nursing Education & Nursing Profession",local:"Amsterdã, NL",continente:"Europa",area:"Enfermagem",data:"23-24 Dez 2026",janela:"Dez/Jan (14/08) ABERTA",edicoes:"25",pts:95,aderencia:"Baixa",aderdet:"enfermagem"},
+{nome:"11ª World Conf. on Nursing Education & Nursing Practice",local:"Londres, UK",continente:"Europa",area:"Enfermagem",data:"10-11 Dez 2026",janela:"Dez/Jan (14/08) ABERTA",edicoes:"10",pts:90,aderencia:"Baixa",aderdet:"enfermagem"}
+];
+document.getElementById('dt').textContent = "14/07/2026";
+
+const proximo = alvos.filter(a=>a.ver==="PRÓXIMO EDITAL").length;
+const kpis=[
+  {n:alvos.length,l:"Alvos monitorados"},
+  {n:"95",l:"Maior pontuação (evento)"},
+  {n:proximo,l:"Alvos do edital 2027"},
+  {n:"2",l:"Janelas FAP abertas"},
+  {n:"51",l:"Conference Series lidos"},
+  {n:"5",l:"CS na área do grupo"}
+];
+document.getElementById('kpis').innerHTML = kpis.map(k=>`<div class="kpi"><div class="n">${k.n}</div><div class="l">${k.l}</div></div>`).join('');
+
+const CORMAP={blue:"t-blue",green:"t-green",yellow:"t-yellow",red:"t-red"};
+function tag(cls,txt){return `<span class="tag ${cls}"><span class="d"></span>${txt}</span>`;}
+function verTag(a){return tag(CORMAP[a.cor],a.ver);}
+function aderTag(c){const m={Média:"t-yellow",Baixa:"t-gray"};return tag(m[c.aderencia]||"t-green",c.aderencia+" ("+c.aderdet+")");}
+
+function opts(id,label,vals){
+  const el=document.getElementById(id);
+  el.innerHTML=`<option value="">${label}: todos</option>`+[...new Set(vals)].sort().map(v=>`<option>${v}</option>`).join('');
+  el.addEventListener('change',renderAlvos);
+}
+opts('fCont','Continente',alvos.map(a=>a.continente));
+opts('fArea','Área',alvos.map(a=>a.area));
+opts('fVer','Veredito',alvos.map(a=>a.ver));
+
+function renderAlvos(){
+  const fc=fCont.value,fa=fArea.value,fv=fVer.value;
+  const rows=alvos.filter(a=>(!fc||a.continente===fc)&&(!fa||a.area===fa)&&(!fv||a.ver===fv)).map(a=>`<tr>
+    <td><strong style="color:var(--ink);font-weight:600">${a.nome}</strong><br><span style="color:var(--muted)">${a.local} · ${a.detalhe}</span></td>
+    <td>${a.data}</td><td>${a.janela}</td><td>${a.prazo}</td>
+    <td><span class="pts">${a.pts}</span><br><span style="color:var(--muted);font-size:11px">${a.ptsdet}</span></td>
+    <td>${verTag(a)}<br><span style="color:var(--muted);font-size:11.5px;display:inline-block;margin-top:4px">${a.vertx}</span></td>
+    <td>${a.link?`<a href="${a.link}" target="_blank" rel="noopener">abrir</a>`:"—"}</td>
+  </tr>`).join('');
+  document.querySelector('#tbl tbody').innerHTML=rows;
+}
+renderAlvos();
+
+document.querySelector('#tblCS tbody').innerHTML = confseries.map(c=>`<tr>
+  <td><strong style="color:var(--ink);font-weight:600">${c.nome}</strong></td><td>${c.local}</td><td>${c.data}</td><td>${c.janela}</td>
+  <td>${c.edicoes}</td><td><span class="pts">${c.pts}</span></td><td>${aderTag(c)}</td>
+</tr>`).join('');
+
+const PAL={blue:"#529cca",green:"#4dab9a",yellow:"#d9a13b",red:"#e0685e",gray:"#a8a6a0",purple:"#9a6dd7"};
+Chart.defaults.color="#787774";Chart.defaults.font.family="Inter,-apple-system,Segoe UI,Roboto,sans-serif";Chart.defaults.borderColor="#ededec";
+function countBy(arr,fn){const m={};arr.forEach(x=>{const k=fn(x);m[k]=(m[k]||0)+1});return m;}
+const cormapChart={blue:PAL.blue,green:PAL.green,yellow:PAL.yellow,red:PAL.red};
+
+new Chart(document.getElementById('cPts'),{type:'bar',data:{labels:alvos.map(a=>a.nome),datasets:[{data:alvos.map(a=>a.pts),
+  backgroundColor:alvos.map(a=>cormapChart[a.cor]||PAL.gray),borderRadius:4}]},
+  options:{indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{beginAtZero:true,max:100},y:{ticks:{font:{size:10}}}}}});
+
+const verCount=countBy(alvos,a=>a.ver);
+new Chart(document.getElementById('cVer'),{type:'doughnut',data:{labels:Object.keys(verCount),datasets:[{data:Object.values(verCount),
+  backgroundColor:[PAL.yellow,PAL.blue,PAL.red,PAL.green,PAL.gray],borderWidth:2,borderColor:"#fff"}]},
+  options:{plugins:{legend:{position:'bottom',labels:{font:{size:11},padding:12}}}}});
+
+const contCount=countBy(alvos,a=>a.continente);
+new Chart(document.getElementById('cCont'),{type:'doughnut',data:{labels:Object.keys(contCount),datasets:[{data:Object.values(contCount),
+  backgroundColor:[PAL.blue,PAL.green,PAL.yellow,PAL.purple,PAL.gray],borderWidth:2,borderColor:"#fff"}]},
+  options:{plugins:{legend:{position:'bottom',labels:{font:{size:11},padding:12}}}}});
+
+const areaCount=countBy(alvos,a=>a.area);
+new Chart(document.getElementById('cArea'),{type:'bar',data:{labels:Object.keys(areaCount),datasets:[{data:Object.values(areaCount),
+  backgroundColor:PAL.green,borderRadius:4}]},
+  options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{stepSize:1}},x:{ticks:{font:{size:10}}}}}});
+</script>
+</body>
+</html>

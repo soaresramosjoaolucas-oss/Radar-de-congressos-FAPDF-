@@ -1,0 +1,75 @@
+{
+  "metadados": {
+    "grupo": "Escola de Pacientes DF - Universidade de Brasília",
+    "coordenador": "João Lucas (graduando, extensão - Faixa A)",
+    "edital": "FAPDF Participa nº 02/2026",
+    "data_execucao": "2026-07-14",
+    "verificacao_web": "13-14/07/2026",
+    "observacao_historico": "Recomenda-se versionar este JSON no repositório GitHub para preservar histórico entre semanas (a pasta de trabalho é reiniciada entre sessões)."
+  },
+  "veredito_semana": "A janela Out/Nov fechou em 10/07. Todas as janelas de eventos abr-nov/2026 já fecharam; abertas apenas Dez/Jan (fecha 14/08) e Fev/Mar-27 (fecha 18/09). ECIM 2027 (95 pts) tem o mês do 1º dia na janela Fev/Mar-27, mas o aceite (08/01/2027) sai ~4 meses após a janela fechar: não encaixa neste edital, fica para 2027. Ação prioritária: preparar o edital 2027 (AMEE, WONCA, ECIM, CBMFC) e usar DEG/UnB como plano B para eventos de 2026.",
+  "janelas_fap": [
+    {"janela": "Abr/Mai 2026", "fecha": "06/02", "situacao": "Encerrada"},
+    {"janela": "Jun 2026", "fecha": "27/03", "situacao": "Encerrada"},
+    {"janela": "Jul 2026", "fecha": "30/04", "situacao": "Encerrada"},
+    {"janela": "Ago 2026", "fecha": "08/05", "situacao": "Encerrada"},
+    {"janela": "Set 2026", "fecha": "12/06", "situacao": "Encerrada"},
+    {"janela": "Out e Nov 2026", "fecha": "10/07", "situacao": "Encerrada há 4 dias"},
+    {"janela": "Dez/2026 e Jan/2027", "fecha": "14/08", "situacao": "ABERTA - 31 dias"},
+    {"janela": "Fev e Mar/2027", "fecha": "18/09", "situacao": "ABERTA - 66 dias"},
+    {"janela": "Abr/2027 em diante", "fecha": "-", "situacao": "Próximo edital (projetar)"}
+  ],
+  "regra_janela": "A FAP exige anexar a carta de ACEITE na submissão (item 9.1.9.3). O aceite precisa sair até o fim da janela do mês do evento - este é o gargalo que reprova a maioria dos encaixes (inclusive o ECIM 2027).",
+  "rubrica_anexo_vii": {
+    "maximo": 150,
+    "criterios": [
+      {"criterio": "Edições anteriores do evento", "pontuacao": "0/10/20/30/40/45/50 (para 0/1/2-3/4-6/7-9/10-19/20+ edições)", "depende": "Congresso"},
+      {"criterio": "Abrangência", "pontuacao": "Regional 10 · Nacional 20 · Internacional 30", "depende": "Congresso"},
+      {"criterio": "Formato do trabalho", "pontuacao": "Pôster/abstract 1 pg 15 · Artigo resumido 1-4 pg 20 · Artigo completo >4 pg 30", "depende": "Congresso/formato"},
+      {"criterio": "Forma de apresentação", "pontuacao": "Pôster 10 · Oral 20", "depende": "Proponente"},
+      {"criterio": "Artigos completos publicados em 2025", "pontuacao": "0/10/15/20 (para 0/1-2/3-5/6+ artigos)", "depende": "Proponente"}
+    ],
+    "desempate": "10.5: artigos 2025 -> nº de edições -> internacional -> oral",
+    "pontuacao_evento": "Parte do congresso (Edições + Abrangência + Formato), base pôster/abstract 1 pg (15)."
+  },
+  "alvos": [
+    {"nome": "ECIM 2027", "detalhe": "25ª ed · Med. Interna, EFIM", "local": "Paris/FR", "continente": "Europa", "area": "Medicina Interna", "data_evento": "31 Mar-03 Abr 2027", "janela_fap": "Fev/Mar-27 (18/09) - mês bate", "prazo_resumo": "01/06-30/10/26", "data_aceite": "08/01/27", "pts": 95, "pts_detalhe": "int·25ªed·pôster", "veredito": "NÃO ENCAIXA", "veredito_texto": "Aceite (08/01/27) sai ~4 meses após a janela fechar (18/09) -> edital 2027", "cor": "amarelo", "link": "https://ecim2027.org/"},
+    {"nome": "AMEE 2027", "detalhe": "local a confirmar", "local": "a confirmar", "continente": "Europa", "area": "Educação Médica", "data_evento": "~Ago 2027", "janela_fap": "Próximo edital", "prazo_resumo": "~Jan/Fev 2027", "data_aceite": "a confirmar", "pts": 95, "pts_detalhe": "int·20+ed·pôster", "veredito": "PRÓXIMO EDITAL", "veredito_texto": "Alvo-âncora legítimo; preparar resumo já", "cor": "azul", "link": "https://amee.org/events/"},
+    {"nome": "26º WONCA World 2027", "detalhe": "MFC global", "local": "Cidade do Cabo/ZA", "continente": "África", "area": "Medicina de Família / APS", "data_evento": "03-07 Nov 2027", "janela_fap": "Próximo edital", "prazo_resumo": "~Abr 2027", "data_aceite": "a confirmar", "pts": 95, "pts_detalhe": "int·20+ed·pôster", "veredito": "PRÓXIMO EDITAL", "veredito_texto": "Planejar submissão no 1º tri/2027", "cor": "azul", "link": "https://www.globalfamilydoctor.com/Conferences/WONCAWorld2027.aspx"},
+    {"nome": "31º WONCA Europe 2027", "detalhe": "Ljubljana/SI (confirmado)", "local": "Ljubljana/SI", "continente": "Europa", "area": "Medicina de Família / APS", "data_evento": "09-12 Jun 2027", "janela_fap": "Próximo edital", "prazo_resumo": "~Jan 2027", "data_aceite": "a confirmar", "pts": 95, "pts_detalhe": "int·20+ed·pôster", "veredito": "PRÓXIMO EDITAL", "veredito_texto": "Cidade confirmada (Ljubljana); confirmar abertura da call", "cor": "azul", "link": "https://woncaeurope2027.org/"},
+    {"nome": "19º CBMFC", "detalhe": "MFC/APS", "local": "Porto Alegre/RS", "continente": "América do Sul", "area": "Medicina de Família / APS", "data_evento": "21-25 Abr 2027", "janela_fap": "Próximo edital", "prazo_resumo": "~Jan/Fev 2027", "data_aceite": "a confirmar", "pts": 80, "pts_detalhe": "nac·10-19ed·pôster", "veredito": "PRÓXIMO EDITAL", "veredito_texto": "Inscrições abertas; garantir lote promo", "cor": "azul", "link": "https://sbmfc.org.br/eventos/19o-congresso-brasileiro-de-medicina-de-familia-e-comunidade/"},
+    {"nome": "STFM MSE 2027", "detalhe": "educ. médica", "local": "Anaheim/EUA", "continente": "América do Norte", "area": "Educação Médica", "data_evento": "05-07 Fev 2027", "janela_fap": "Fev/Mar-27 (18/09) - mês bate", "prazo_resumo": "17/06/26 (encerrado)", "data_aceite": "a confirmar", "pts": 95, "pts_detalhe": "int·20+ed·pôster", "veredito": "NO LIMITE", "veredito_texto": "Só se já submeteu; aceite precisa sair antes de 18/09", "cor": "amarelo", "link": "https://www.stfm.org/conferences/mse/overview/"},
+    {"nome": "64º COBEM 2026", "detalhe": "núcleo do grupo", "local": "Porto Alegre/RS", "continente": "América do Sul", "area": "Educação Médica", "data_evento": "17-20 Set 2026", "janela_fap": "Set 2026 (12/06) FECHADA", "prazo_resumo": "Jul/2026 (verificar)", "data_aceite": "a confirmar", "pts": 85, "pts_detalhe": "nac·20+ed·pôster", "veredito": "INVIÁVEL", "veredito_texto": "Janela fechou -> plano B DEG/UnB", "cor": "vermelho", "link": "https://website.abem-educmed.org.br/congressos/cobem/"},
+    {"nome": "IX Cong. Sul-Brasileiro de MFC", "detalhe": "tema = ensino na APS", "local": "Florianópolis/SC", "continente": "América do Sul", "area": "Medicina de Família / APS", "data_evento": "20-22 Ago 2026", "janela_fap": "Ago 2026 (08/05) FECHADA", "prazo_resumo": "Verificar (Dype)", "data_aceite": "a confirmar", "pts": 65, "pts_detalhe": "reg·7-9ed·pôster", "veredito": "INVIÁVEL", "veredito_texto": "Plano B DEG/UnB (tema = ensino na APS)", "cor": "vermelho", "link": "https://www.sulbrasileiromfc2026.com.br/"},
+    {"nome": "18º WCPH 2026", "detalhe": "saúde pública", "local": "Cidade do Cabo/ZA", "continente": "África", "area": "Saúde Pública", "data_evento": "06-09 Set 2026", "janela_fap": "Set 2026 (12/06) FECHADA", "prazo_resumo": "Encerrado (late-break?)", "data_aceite": "a confirmar", "pts": 90, "pts_detalhe": "int·10-19ed·pôster", "veredito": "INVIÁVEL", "veredito_texto": "Plano B DEG/UnB", "cor": "vermelho", "link": "https://www.wcph.org/"},
+    {"nome": "NAPCRG 2026 (54º)", "detalhe": "pesquisa APS", "local": "Toronto/CA", "continente": "América do Norte", "area": "Pesquisa em APS", "data_evento": "20-24 Nov 2026", "janela_fap": "Out/Nov (10/07) FECHOU", "prazo_resumo": "Fechou 12/07/2026", "data_aceite": "a confirmar", "pts": 95, "pts_detalhe": "int·20+ed·pôster", "veredito": "INVIÁVEL", "veredito_texto": "Janela fechou 10/07 -> plano B DEG/UnB", "cor": "vermelho", "link": "https://www.napcrg.org/conferences/annual/annualmeeting/"},
+    {"nome": "ICRE 2026", "detalhe": "educ. em residência", "local": "Ottawa/CA", "continente": "América do Norte", "area": "Educação Médica", "data_evento": "22-24 Out 2026", "janela_fap": "Out/Nov (10/07) FECHOU", "prazo_resumo": "Verificar site", "data_aceite": "a confirmar", "pts": 95, "pts_detalhe": "int·pôster·a confirmar", "veredito": "INVIÁVEL", "veredito_texto": "Plano B DEG/UnB", "cor": "vermelho", "link": "https://icre.royalcollege.ca/en"},
+    {"nome": "ICCH 2026", "detalhe": "comunicação em saúde", "local": "Belfast/UK", "continente": "Europa", "area": "Comunicação em Saúde", "data_evento": "14-18 Set 2026", "janela_fap": "Set 2026 (12/06) FECHADA", "prazo_resumo": "Encerrado", "data_aceite": "a confirmar", "pts": 90, "pts_detalhe": "int·pôster·edições a confirmar", "veredito": "INVIÁVEL", "veredito_texto": "Plano B DEG/UnB", "cor": "vermelho", "link": "https://fitwise.eventsair.com/icch2026/"},
+    {"nome": "II Cong. Brasiliense de MFC", "detalhe": "evento em casa", "local": "Brasília/DF", "continente": "América do Sul", "area": "Medicina de Família / APS", "data_evento": "13-15 Ago 2026", "janela_fap": "Não se aplica (sem viagem)", "prazo_resumo": "Verificar site", "data_aceite": "a confirmar", "pts": 35, "pts_detalhe": "reg·2ª ed·pôster", "veredito": "SEM FAP", "veredito_texto": "Apresentar livremente, dá volume ao currículo", "cor": "verde", "link": "https://sbmfc.org.br/eventos/ii-congresso-brasiliense-de-medicina-de-familia-e-comunidade/"}
+  ],
+  "conference_series": {
+    "resumo_varredura": "Varredura de 2 trilhas do conferenceseries.com (primary healthcare/family medicine + public health): 51 eventos lidos, 17 em janela FAP aberta, 5 na área do grupo.",
+    "idoneidade_fatos": "Conference Series LLC/OMICS declara 3000+ eventos e roda séries mensais. Aceite-relâmpago cai nas janelas abertas. Pontuação varia (edição alta 26ª/34ª = 95; novos 7ª = 75). Maioria é enfermagem. Taxas ~US$ 600-1.000. IDONEIDADE (fatos a ponderar): perfil predatório documentado; OMICS perdeu ação da FTC (~US$ 50 mi, 2019) por alegações enganosas; a FAP avalia mérito e pode reprovar/questionar; Anexo III responsabiliza o proponente. A mesma pontuação (95) existe em congressos legítimos (AMEE, WONCA, NAPCRG, ECIM). Fatos postos - a escolha é do grupo.",
+    "eventos_area_grupo": [
+      {"nome": "34ª Int. Congress on Nursing Education & Primary Health Care", "local": "Roma, IT", "data_evento": "21-22 Jan 2027", "janela_fap": "Dez/Jan (14/08) ABERTA", "edicoes": "33", "pts": 95, "aderencia": "Média (APS + educação)"},
+      {"nome": "34ª Int. Congress on Nursing & Primary Health Care", "local": "Roma, IT", "data_evento": "04-05 Fev 2027", "janela_fap": "Fev/Mar-27 (18/09) ABERTA", "edicoes": "33", "pts": 95, "aderencia": "Média (APS)"},
+      {"nome": "7º Global Summit on Public Health", "local": "Amsterdã, NL", "data_evento": "13-14 Jan 2027", "janela_fap": "Dez/Jan (14/08) ABERTA", "edicoes": "6", "pts": 75, "aderencia": "Média (saúde pública)"},
+      {"nome": "26ª Int. Conf. on Nursing Education & Nursing Profession", "local": "Amsterdã, NL", "data_evento": "23-24 Dez 2026", "janela_fap": "Dez/Jan (14/08) ABERTA", "edicoes": "25", "pts": 95, "aderencia": "Baixa (enfermagem)"},
+      {"nome": "11ª World Conf. on Nursing Education & Nursing Practice", "local": "Londres, UK", "data_evento": "10-11 Dez 2026", "janela_fap": "Dez/Jan (14/08) ABERTA", "edicoes": "10", "pts": 90, "aderencia": "Baixa (enfermagem)"}
+    ],
+    "omitidos": "Os 17 eventos em janela aberta incluem ~12 de enfermagem pura/fora do foco (ex.: 63ª World Nursing, 21ª Psychiatric Nursing, 44ª Women's Health, 10ª PCOS). Fora do conferenceseries.com: 7ª Int. Conf. on Medical Education (OMICS/healthconferences.org, Paris 21-22/10/26, 7ª ed -> 75 pts) está na janela Out/Nov (fechada)."
+  },
+  "estrategia_nota_corte": {
+    "explicacao": "A verba é distribuída por Faixa (A = graduando) e por período (mês do evento). Dentro de cada período/faixa, candidatos são ranqueados pela pontuação e contemplados até o dinheiro acabar. A nota de corte = menor pontuação entre os contemplados.",
+    "alavancas": "(1) travar 80 com internacional 20+ edições (50+30); (2) subir o formato - artigo completo >4pg = 30; (3) garantir oral (+20); (4) publicar artigos completos em 2025 (+até 20). Meta: mirar ~130+, não o mínimo.",
+    "cenarios": [
+      {"cenario": "Mínimo", "edicoes": 50, "abrangencia": "30 (int.)", "formato": "15 (pôster)", "apresentacao": "10 (pôster)", "artigos_2025": "0", "total": 105},
+      {"cenario": "Realista", "edicoes": 50, "abrangencia": "30 (int.)", "formato": "15 (pôster)", "apresentacao": "20 (oral)", "artigos_2025": "10 (1-2)", "total": 125},
+      {"cenario": "Forte", "edicoes": 50, "abrangencia": "30 (int.)", "formato": "30 (art. completo)", "apresentacao": "20 (oral)", "artigos_2025": "15 (3-5)", "total": 145},
+      {"cenario": "Teto", "edicoes": 50, "abrangencia": "30 (int.)", "formato": "30 (art. completo)", "apresentacao": "20 (oral)", "artigos_2025": "20 (6+)", "total": 150}
+    ],
+    "nota_corte_faixa_a": "Não foi possível extrair o número da última nota de corte (página de resultado da FAP é dinâmica). Onde ler: DODF (dodf.df.gov.br), Editais FAPDF 2026 (fap.df.gov.br/editais-fapdf-20261), fap.df.gov.br/category/resultados. Confirmar por e-mail da COOTEC (cootec@fap.df.gov.br). Regra prática: mirar >=130 dá folga sobre cortes históricos de Faixa A."
+  },
+  "regra_de_ouro": "Um bom alvo passa nos TRÊS filtros - encaixe na janela · pontuação alta · idoneidade. Lição do ECIM 2027: o mês do evento bater na janela é necessário, mas não basta - o aceite tem de sair antes de a janela fechar.",
+  "fontes": ["ecim2027.org", "efim.org", "fap.df.gov.br", "dodf.df.gov.br", "amee.org", "stfm.org", "sbmfc.org.br", "abem-educmed.org.br", "napcrg.org", "conferenceseries.com"]
+}
